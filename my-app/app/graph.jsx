@@ -91,7 +91,6 @@ const GraphScreenshot = () => {
           height={500}
           alt="Sonic"
         />
-
       </div>
     </div>
   );
