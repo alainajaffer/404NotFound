@@ -47,12 +47,12 @@ const GraphScreenshot = () => {
   };
 
   return (
-    <div className="p-4 min-h-screen flex flex-col items-center">
+    <div className="p-4 min-h-screen items-center">
       <div className="text-center font-press-start-2p text-4xl my-8">
         Sonic Sight
       </div>
       <div className="flex flex-col items-center w-full max-w-6xl">
-        <div ref={graphRef} id="graph-container" className="h-[500px]">
+        <div ref={graphRef} id="graph-container">
           <BitcoinChart />
         </div>
 
@@ -70,13 +70,13 @@ const GraphScreenshot = () => {
             <option value="graduate">Graduate</option>
             <option value="expert">Expert</option>
           </Select>
-          <Button onClick={captureScreenshot} colorScheme="blue" className="w-1/5">
+          <Button onClick={captureScreenshot} colorScheme="blue" className="w-1/3">
             Explain
           </Button>
-          <Button onClick={handleTextToVoice} colorScheme="blue" className="w-1/5">
+          <Button onClick={handleTextToVoice} colorScheme="blue" className="w-1/3">
             🔊 Listen
           </Button>
-          <Button onClick={handleStopVoice} colorScheme="red" className="w-1/5">
+          <Button onClick={handleStopVoice} colorScheme="red" className="w-1/3">
             ⏹ Stop
           </Button>
         </div>

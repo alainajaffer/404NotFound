@@ -1,16 +1,27 @@
-import React, { useEffect, useRef } from 'react';
+// src/components/BitcoinChart.js
+import React, { useEffect, useRef, useState } from 'react';
 import { Chart, registerables } from 'chart.js';
 import { DateTime } from 'luxon';
 import { c2mChart } from 'chart2music';
 import numeral from 'numeral';
+import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Button, HStack, VStack, Text } from '@chakra-ui/react';
 
 // Register the necessary Chart.js components
 Chart.register(...registerables);
+
+const colorPalettes = {
+  default: 'blue',
+  deuteranopia: 'red',
+  protanopia: 'green',
+  tritanopia: 'purple',
+};
 
 const BitcoinChart = () => {
   const canvasRef = useRef(null);
   const ccRef = useRef(null);
   const chartRef = useRef(null);
+  const [textSize, setTextSize] = useState(12);
+  const [color, setColor] = useState(colorPalettes.default);
 
   useEffect(() => {
     const title = "Bitcoin price";
@@ -26,8 +37,8 @@ const BitcoinChart = () => {
       data: {
         datasets: [{
           label: title,
-          backgroundColor: 'blue',
-          borderColor: 'blue',
+          backgroundColor: color,
+          borderColor: color,
           hoverRadius: 10,
           data: data.map((value, index) => {
             return {
@@ -41,7 +52,10 @@ const BitcoinChart = () => {
         plugins: {
           title: {
             text: title,
-            display: true
+            display: true,
+            font: {
+              size: textSize,
+            },
           },
           legend: {
             display: false
@@ -51,12 +65,22 @@ const BitcoinChart = () => {
           y: {
             title: {
               display: true,
-              text: 'Price'
+              text: 'Price',
+              font: {
+                size: textSize,
+              },
             }
           },
           x: {
             type: 'category',
-            labels: data.map((_, index) => DateTime.fromISO('2022-01-01').plus({ days: index }).toLocaleString({ month: 'long', day: 'numeric' }))
+            labels: data.map((_, index) => DateTime.fromISO('2022-01-01').plus({ days: index }).toLocaleString({ month: 'long', day: 'numeric' })),
+            title: {
+              display: true,
+              text: 'Date',
+              font: {
+                size: textSize,
+              },
+            }
           }
         }
       }
@@ -92,11 +116,31 @@ const BitcoinChart = () => {
     if (err) {
       console.error(err);
     }
-  }, []);
+  }, [textSize, color]);
 
   return (
-    <div className="container w-[1000px] h-[1000px]">
-      <canvas id="canvas" ref={canvasRef} className="w-[1000px] h-[1000px]"></canvas>
+    <div className="container flex flex-col items-center p-5 w-full max-w-screen-xl mx-auto">
+      <div className="chart-container w-full h-auto relative">
+        <canvas id="canvas" ref={canvasRef} className="w-[1000px] h-[500px]"></canvas>
+      </div>
+      <div className="controls w-full mt-5">
+        <VStack spacing={4} align="stretch" width="full">
+          <Text fontSize="lg" fontWeight="bold">Text Size</Text>
+          <Slider defaultValue={12} min={8} max={24} step={1} onChange={(val) => setTextSize(val)}>
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+          <Text fontSize="lg" fontWeight="bold">Color Palette</Text>
+          <HStack spacing={4} wrap="wrap">
+            <Button onClick={() => setColor(colorPalettes.default)}>Default</Button>
+            <Button onClick={() => setColor(colorPalettes.deuteranopia)}>Deuteranopia</Button>
+            <Button onClick={() => setColor(colorPalettes.protanopia)}>Protanopia</Button>
+            <Button onClick={() => setColor(colorPalettes.tritanopia)}>Tritanopia</Button>
+          </HStack>
+        </VStack>
+      </div>
     </div>
   );
 };
