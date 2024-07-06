@@ -7,9 +7,9 @@ import { Button, Select } from "@chakra-ui/react";
 import Image from "next/image";
 
 const GraphScreenshot = () => {
-  const graphRef = useRef();
+  const graphRef = useRef(null);
   const [level, setLevel] = useState("");
-  const [text, setText] = useState("")
+  const [text, setText] = useState("");
 
   const handleChange = (event) => {
     setLevel(event.target.value);
@@ -85,7 +85,7 @@ const GraphScreenshot = () => {
           <p>{text}</p>
         </div>
         <Image
-          className='mt-5'
+          className="mt-5"
           src="/image.png"
           width={500}
           height={500}

@@ -1,4 +1,4 @@
-// src/components/BitcoinChart.js
+"use client"
 import React, { useEffect, useRef, useState } from 'react';
 import { Chart, registerables } from 'chart.js';
 import { DateTime } from 'luxon';
