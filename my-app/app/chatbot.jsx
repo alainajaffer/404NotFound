@@ -11,6 +11,9 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Switch,
+  FormControl,
+  FormLabel,
 } from '@chakra-ui/react';
 
 const Chatbot = () => {
@@ -22,6 +25,7 @@ const Chatbot = () => {
     },
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isSpeechEnabled, setIsSpeechEnabled] = useState(false);
 
   const handleButtonClick = () => {
     setIsOpen(!isOpen);
@@ -59,6 +63,10 @@ To make web applications accessible, use high contrast colors, avoid relying sol
 
     setMessages([...messages, newMessage, botMessage]);
     setInputValue('');
+    if (isSpeechEnabled && botMessage.sender === 'bot') {
+      const utterance = new SpeechSynthesisUtterance(botMessage.text);
+      speechSynthesis.speak(utterance);
+    }
   };
 
   const handleOptionClick = (option) => {
@@ -71,6 +79,15 @@ To make web applications accessible, use high contrast colors, avoid relying sol
       options: false,
     };
     setMessages([...messages, botMessage]);
+
+    if (isSpeechEnabled && botMessage.sender === 'bot') {
+      const utterance = new SpeechSynthesisUtterance(botMessage.text);
+      speechSynthesis.speak(utterance);
+    }
+  };
+
+  const toggleSpeech = () => {
+    setIsSpeechEnabled(!isSpeechEnabled);
   };
 
   return (
@@ -106,11 +123,21 @@ To make web applications accessible, use high contrast colors, avoid relying sol
             right="2"
             onClick={() => setIsOpen(false)}
           />
+          <FormControl display="flex" alignItems="center" mb="4">
+            <FormLabel htmlFor="speech-toggle" mb="0">
+              Enable Speech
+            </FormLabel>
+            <Switch
+              id="speech-toggle"
+              isChecked={isSpeechEnabled}
+              onChange={toggleSpeech}
+            />
+          </FormControl>
           <VStack
             spacing={4}
             align="start"
             overflowY="auto"
-            maxH="60vh"
+            maxH="50vh"
             width="100%"
           >
             {messages.map((message, index) => (
