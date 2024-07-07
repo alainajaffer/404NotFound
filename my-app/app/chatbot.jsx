@@ -121,6 +121,7 @@ To make web applications accessible, use high contrast colors, avoid relying sol
             position="absolute"
             top="2"
             right="2"
+            zIndex="20"  // Ensure the close button is on top
             onClick={() => setIsOpen(false)}
           />
           <FormControl display="flex" alignItems="center" mb="4">

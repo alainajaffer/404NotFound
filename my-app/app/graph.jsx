@@ -101,4 +101,5 @@ const GraphScreenshot = () => {
   );
 };
 
+
 export default GraphScreenshot;

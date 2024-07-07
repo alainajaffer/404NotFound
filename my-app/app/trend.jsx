@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import { Text, Circle } from '@chakra-ui/react';
 
 const TrendEmojis = ({ data }) => {
   const getOverallTrendEmoji = () => {
@@ -19,10 +19,9 @@ const TrendEmojis = ({ data }) => {
   };
 
   return (
-    <Box>
-      <Text fontSize="xl" fontWeight="bold" className="mb-10 mt-4">Overall Trend</Text>
-      <Text fontSize="7xl">{getOverallTrendEmoji()}</Text>
-    </Box>
+    <Circle size="100px" bg="gray.100">
+      <Text fontSize="5xl">{getOverallTrendEmoji()}</Text>
+    </Circle>
   );
 };
 
