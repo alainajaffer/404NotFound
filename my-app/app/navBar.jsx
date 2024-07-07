@@ -10,26 +10,26 @@ const NavBar = () => {
                 <Activity />
                 <Text>SonicSight </Text>
                 <Image
-                src="/image.png"
-                width={40}
-                height={40}
-                alt="Sonic"
+                    src="/image.png"
+                    width={40}
+                    height={40}
+                    alt="Sonic"
                 />
             </HStack>
             <HStack as="nav" spacing="40" justifyContent="center" ml="-90px">
                 <Text color={"black"} fontWeight={"medium"} fontSize="16px" _hover={{ transform: "scale(1.03)" }} >
-                        Data visualisation
+                    Data visualisation
                 </Text>
                 <Text color={"black"} fontWeight={"light"} fontSize="16px" textDecoration="none" _hover={{ transform: "scale(1.03)" }}>
-                       Accessibility
+                    About
                 </Text>
                 <Text color={"black"} fontWeight={"light"} fontSize="16px" textDecoration="none" _hover={{ transform: "scale(1.03)" }}>
-                        Data
+                    Docs
                 </Text>
             </HStack>
             <Box>
                 <Button px="1px" bgColor="#FFFFFF">
-                    {<User  strokeWidth="1.5px"/>}
+                    {<User strokeWidth="1.5px" />}
                 </Button>
             </Box>
         </Flex>
