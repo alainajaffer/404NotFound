@@ -3,9 +3,8 @@ import React, { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import axios from "axios";
 import BitcoinChart from "./bitCoinGraph";
-import { Button, Select, VStack, HStack, Card, CardBody, Text, Box } from "@chakra-ui/react";
+import { Button, Select, VStack, HStack, Card, CardBody, Text, Box, useBreakpointValue } from "@chakra-ui/react";
 import { HelpCircle, Play, Pause, BookOpen } from "react-feather";
-import TrendEmojis from './trend';
 import Chatbot from "./chatbot";
 
 const GraphScreenshot = () => {
@@ -50,17 +49,21 @@ const GraphScreenshot = () => {
     synth.cancel();
   };
 
+  const explanationCardWidth = useBreakpointValue({ base: "95%", md: "85%" });
+  const controlStackSpacing = useBreakpointValue({ base: 2, md: 4 });
+  const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
+
   return (
-    <VStack width="90%" alignItems="center" pt="80px" ml="6vw" mb="120px">
-      <Box>
+    <VStack width="100%" alignItems="center" pt={{ base: "20px", md: "80px" }} px={{ base: "2vw", md: "6vw" }} mb="120px">
+      <Box width="100%" maxW="1200px">
         <div ref={graphRef} id="graph-container">
           <BitcoinChart />
         </div>
       </Box>
-      <HStack width="80%" justifyContent="space-between">
-        <HStack>
+      <HStack width="100%" maxW="1200px" justifyContent="space-between" mt="20px" spacing={controlStackSpacing} flexWrap="wrap">
+        <HStack spacing={controlStackSpacing}>
           <Text fontWeight="light">Select explanation level:</Text>
-          <Select placeholder=" " size="sm" value={level} onChange={handleChange} width="auto">
+          <Select placeholder=" " size={buttonSize} value={level} onChange={handleChange} width="auto">
             <option value="child">Child</option>
             <option value="teen">Teen</option>
             <option value="university">University Student</option>
@@ -71,20 +74,20 @@ const GraphScreenshot = () => {
             <HelpCircle strokeWidth="1px" />
           </Button>
         </HStack>
-        <HStack>
-          <Button fontWeight="light" isDisabled={level === ""} onClick={captureScreenshot} bgColor="#F6EFA6" width="auto" shadow="md">
+        <HStack spacing={controlStackSpacing}>
+          <Button fontWeight="light" isDisabled={level === ""} onClick={captureScreenshot} bgColor="#F6EFA6" size={buttonSize} shadow="md">
             Explain
           </Button>
-          <Button isDisabled={level === ""} onClick={handleTextToVoice} bgColor="#B8EF25" px="1px" shadow="md">
+          <Button isDisabled={level === ""} onClick={handleTextToVoice} bgColor="#B8EF25" size={buttonSize} shadow="md">
             <Play strokeWidth="1.5px" />
           </Button>
-          <Button isDisabled={level === ""} onClick={handleStopVoice} colorScheme="red" px="1px" shadow="md">
+          <Button isDisabled={level === ""} onClick={handleStopVoice} colorScheme="red" size={buttonSize} shadow="md">
             <Pause strokeWidth="1.5px" />
           </Button>
         </HStack>
       </HStack>
       {showExplanation ? (
-        <Card width="85%" shadow="md" mt="50px" variant="outline">
+        <Card width={explanationCardWidth} shadow="md" mt="50px" variant="outline">
           <CardBody p="30px">
             <HStack>
               <BookOpen strokeWidth="1.5px" mt="0px" />
@@ -100,6 +103,5 @@ const GraphScreenshot = () => {
     </VStack>
   );
 };
-
 
 export default GraphScreenshot;
