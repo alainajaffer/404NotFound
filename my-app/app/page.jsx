@@ -1,15 +1,14 @@
 "use client"
 import GraphScreenshot from "./graph";
+import NavBar from "./navBar"
+import { Flex } from '@chakra-ui/react'
 import { ChakraProvider } from '@chakra-ui/react'
 
 export default function Home() {
   return (
     <ChakraProvider>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+      <NavBar />
           <GraphScreenshot />
-        </div>
-      </main>
     </ChakraProvider>
   );
 }

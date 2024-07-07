@@ -4,7 +4,7 @@ import { Chart, registerables } from 'chart.js';
 import { DateTime } from 'luxon';
 import { c2mChart } from 'chart2music';
 import numeral from 'numeral';
-import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Button, HStack, VStack, Text } from '@chakra-ui/react';
+import { Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Button, HStack, VStack, Text, Card, CardBody } from '@chakra-ui/react';
 import TrendEmojis from './trend';
 
 // Register the necessary Chart.js components
@@ -120,30 +120,32 @@ const BitcoinChart = () => {
   }, [textSize, color]);
 
   return (
-    <div className="container flex flex-col items-center p-5 w-full max-w-screen-xl mx-auto">
-      <div className="chart-container w-full h-auto relative">
-        <canvas id="canvas" ref={canvasRef} className="w-[1000px] h-[500px]"></canvas>
-      </div>
-      <div className="controls w-full mt-5">
-        <VStack spacing={4} align="stretch" width="full">
-          <Text fontSize="lg" fontWeight="bold">Text Size</Text>
-          <Slider defaultValue={12} min={8} max={24} step={1} onChange={(val) => setTextSize(val)}>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb sx={{ borderWidth: "2px", borderColor: "black" }} />
-          </Slider>
-          <Text fontSize="lg" fontWeight="bold">Color Palette</Text>
-          <HStack spacing={4} wrap="wrap">
-            <Button onClick={() => setColor(colorPalettes.default)}>Default</Button>
-            <Button onClick={() => setColor(colorPalettes.deuteranopia)}>Deuteranopia</Button>
-            <Button onClick={() => setColor(colorPalettes.protanopia)}>Protanopia</Button>
-            <Button onClick={() => setColor(colorPalettes.tritanopia)}>Tritanopia</Button>
-          </HStack>
-        </VStack>
-        <TrendEmojis data={data} />
-      </div>
-    </div>
+    <Card shadow="lg" mb="40px" p="10px" variant="outline">
+      <CardBody>
+        <div className="chart-container w-full h-auto relative">
+          <canvas id="canvas" ref={canvasRef} className="w-[1000px] h-[500px]"></canvas>
+        </div>
+        {/* <div className="controls w-full mt-5">
+          <VStack spacing={4} align="stretch" width="full">
+            <Text fontSize="lg" fontWeight="bold">Text Size</Text>
+            <Slider defaultValue={12} min={8} max={24} step={1} onChange={(val) => setTextSize(val)}>
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb sx={{ borderWidth: "2px", borderColor: "black" }} />
+            </Slider>
+            <Text fontSize="lg" fontWeight="bold">Color Palette</Text>
+            <HStack spacing={4} wrap="wrap">
+              <Button onClick={() => setColor(colorPalettes.default)}>Default</Button>
+              <Button onClick={() => setColor(colorPalettes.deuteranopia)}>Deuteranopia</Button>
+              <Button onClick={() => setColor(colorPalettes.protanopia)}>Protanopia</Button>
+              <Button onClick={() => setColor(colorPalettes.tritanopia)}>Tritanopia</Button>
+            </HStack>
+          </VStack>
+          <TrendEmojis data={data} />
+        </div> */}
+      </CardBody>
+    </Card>
   );
 };
 
