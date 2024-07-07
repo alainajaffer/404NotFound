@@ -3,10 +3,11 @@ import React, { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import axios from "axios";
 import BitcoinChart from "./bitCoinGraph";
-import { Button, Select, VStack, HStack, Card, CardBody, Text, Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb} from "@chakra-ui/react";
+import { Button, Select, VStack, HStack, Card, CardBody, Text, Box, Slider, SliderTrack, SliderFilledTrack, SliderThumb } from "@chakra-ui/react";
 import { HelpCircle, Play, Pause, BookOpen } from "react-feather";
 import Image from "next/image";
 import TrendEmojis from './trend';
+import Chatbot from "./chatbot";
 
 const GraphScreenshot = () => {
   const graphRef = useRef(null);
@@ -29,7 +30,7 @@ const GraphScreenshot = () => {
             setText(response.data.explanation);
             setShowExplanation(true)
           })
-      
+
           .catch((error) => {
             console.error(
               "Error uploading image:",
@@ -55,53 +56,53 @@ const GraphScreenshot = () => {
 
   return (
     <VStack width="90%" alignItems="center" pt="80px" ml="6vw" mb="120px" >
-        <Box>
-              <div ref={graphRef} id="graph-container">
-                <BitcoinChart />
-              </div>
-        </Box>
-        <HStack width="80%" justifyContent="space-between">
-          <HStack>
-            <Text fontWeight="light">  Select explanation level: </Text>
-                <Select placeholder=" " size="sm" value={level} onChange={handleChange} width="auto">
-                  <option value="child">Child</option>
-                  <option value="teen">Teen</option>
-                  <option value="university">University Student</option>
-                  <option value="graduate">Graduate</option>
-                  <option value="expert">Expert</option>
-                </Select>
-                <Button bgColor="#FFFFFF" p="0">
-                  <HelpCircle strokeWidth="1px"/>
-                </Button>
-          </HStack>
-          <HStack>
-              <Button fontWeight="light" isDisabled={level === ""} onClick={captureScreenshot} bgColor="#F6EFA6" width="auto" shadow="md">
-                Explain
-              </Button>
-              <Button isDisabled={level === ""} onClick={handleTextToVoice} bgColor="#B8EF25" px="1px" shadow="md">
-                <Play strokeWidth="1.5px"/>
-              </Button>
-              <Button isDisabled={level === ""} onClick={handleStopVoice} colorScheme="red" px="1px" shadow="md">
-                <Pause strokeWidth="1.5px"/>
-              </Button>
-          </HStack>
+      <Box>
+        <div ref={graphRef} id="graph-container">
+          <BitcoinChart />
+        </div>
+      </Box>
+      <HStack width="80%" justifyContent="space-between">
+        <HStack>
+          <Text fontWeight="light">  Select explanation level: </Text>
+          <Select placeholder=" " size="sm" value={level} onChange={handleChange} width="auto">
+            <option value="child">Child</option>
+            <option value="teen">Teen</option>
+            <option value="university">University Student</option>
+            <option value="graduate">Graduate</option>
+            <option value="expert">Expert</option>
+          </Select>
+          <Button bgColor="#FFFFFF" p="0">
+            <HelpCircle strokeWidth="1px" />
+          </Button>
         </HStack>
-        {showExplanation ? (
-          <Card width="85%" shadow="md" mt="50px" variant="outline">
-            <CardBody p="30px">
-              <HStack>
-                <BookOpen strokeWidth="1.5px" mt="0px"/>
-                <Text mb="10px" fontWeight="normal" mt="9px">What this graph shows:</Text>
-              </HStack>
-              <Text fontWeight="light" mt="25px"> {text}</Text>
-            </CardBody>
-          </Card>
-        ): (
+        <HStack>
+          <Button fontWeight="light" isDisabled={level === ""} onClick={captureScreenshot} bgColor="#F6EFA6" width="auto" shadow="md">
+            Explain
+          </Button>
+          <Button isDisabled={level === ""} onClick={handleTextToVoice} bgColor="#B8EF25" px="1px" shadow="md">
+            <Play strokeWidth="1.5px" />
+          </Button>
+          <Button isDisabled={level === ""} onClick={handleStopVoice} colorScheme="red" px="1px" shadow="md">
+            <Pause strokeWidth="1.5px" />
+          </Button>
+        </HStack>
+      </HStack>
+      {showExplanation ? (
+        <Card width="85%" shadow="md" mt="50px" variant="outline">
+          <CardBody p="30px">
+            <HStack>
+              <BookOpen strokeWidth="1.5px" mt="0px" />
+              <Text mb="10px" fontWeight="normal" mt="9px">What this graph shows:</Text>
+            </HStack>
+            <Text fontWeight="light" mt="25px"> {text}</Text>
+          </CardBody>
+        </Card>
+      ) : (
 
-          <Text mt="80px" fontWeight="light"> Select an explanation level and press 'Explain' to reveal more... </Text>
-        )
-          }
-            {/* <div className="mt-4 w-full p-4 bg-gray-100 rounded-lg shadow-lg">
+        <Text mt="80px" fontWeight="light"> Select an explanation level and press 'Explain' to reveal more... </Text>
+      )
+      }
+      {/* <div className="mt-4 w-full p-4 bg-gray-100 rounded-lg shadow-lg">
               <h2 className="text-2xl font-bold mb-4">Explanation</h2>
               <p>{text}</p>
             </div>
@@ -112,6 +113,7 @@ const GraphScreenshot = () => {
               height={500}
               alt="Sonic"
             /> */}
+      <Chatbot />
     </VStack>
   );
 };
