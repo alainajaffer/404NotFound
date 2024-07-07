@@ -117,7 +117,7 @@ const BitcoinChart = () => {
     if (err) {
       console.error(err);
     }
-  }, [textSize, color]);
+  }, [textSize, color, data]);
 
   return (
     <Card shadow="lg" mb="40px" p="10px" variant="outline">
